@@ -64,13 +64,36 @@ Connect LED 2 to GP17 via a 330Ω resistor.
 Connect the other terminals of the switches to GND.
 
 ## PROGRAM (MicroPython)
-''''
+````
+import dht
+import machine 
+import time
+
+# Define DHT22 sensor pin (GPIO XX -15)
+dht_pin = machine.Pin(15, machine.Pin.IN, machine.Pin.PULL_UP)
+sensor = dht.DHT22(dht_pin)
+
+while True:
+    try:
+        sensor.measure()
+        temp = sensor.temperature() # Get temperature in Celsius 
+        hum = sensor.humidity() # Get humidity
+        print(f"Temperature: {temp:.1f}°C")
+        print(f"Humidity: {hum:.1f}%")
+
+    except Exception as e:
+        print("Error reading sensor:", e)
+    time.sleep(2) # Wait for 2 seconds before next reading
+
+
+ ````
 
 
 
  
 
 ## OUTPUT
+![419989952-51e36a73-0892-46fe-99d5-6a05035197ee](https://github.com/user-attachments/assets/56004e9f-2de2-48f2-8c86-57cb0f1bdfd4)
 
 
 
